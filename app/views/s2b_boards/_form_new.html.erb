@@ -34,7 +34,10 @@
         <% end %>
       </select></p>
       <p><span class="span5"><%= l(:label_start_date)%></span>
-      <input class="span7 value_content" name="issue[start_date]" id="new_date_start_<%= issue.id %>"  value="<%= format_date(issue.start_date) %>"></p>
+      
+      <input class="span7 value_content" name="issue[start_date]" id="new_date_start_<%= issue.id %>"  value="<%= issue.start_date %>"/>      
+      <% # calendar_for('new_date_start_' + issue.id.to_s ) %>
+      </p>
     </div>
     
     <div class="span6">
@@ -47,9 +50,9 @@
       </select></p>
       <p id="p_time_<%= issue.id %>"><span class="span5" style="text-align:justify; white-space: nowrap;"><%= l(:label_head_issue_est_time) %> </span>
       <input class="span7 input-mini value_content" name="issue[estimated_hours]"  id="new_time_<%= issue.id %>" value="<%= issue.estimated_hours %>" style="text"/></p>
-      
       <p><span class="span5" ><%= l(:label_end_date)%></span>
-      <input class="span7 value_content" name="issue[due_date]"  id="new_date_end_<%= issue.id %>" value="<%= format_date(issue.due_date) %>"/></p>
+      <input class="span7 value_content" name="issue[due_date]"  id="new_date_end_<%= issue.id %>" value="<%= issue.due_date %>"/>
+      </p>
 
     </div>
   </div>

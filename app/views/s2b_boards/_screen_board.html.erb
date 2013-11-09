@@ -5,7 +5,7 @@
       </p>
       <% if !User.current.anonymous? && @id_member.include?(User.current.id)|| User.current.admin%>
         <p class="new_issue ">
-        <img src="/plugin_assets/scrum2b/images/Add.ico" title="<%= l(:label_board_issue_new_issue)%>" class="icon_new_issue icon">
+        <%= image_tag "Add.ico",:plugin => 'scrum2b', title: l(:label_board_issue_new_issue), class: "icon_new_issue icon" %>
         </p>
       <% end %>
       <div class="connectedSortable" id ="<% if !User.current.anonymous? && id_member.include?(User.current.id)|| User.current.admin%>new<% else %>new_nomember<% end %>" value="status_no_start">
