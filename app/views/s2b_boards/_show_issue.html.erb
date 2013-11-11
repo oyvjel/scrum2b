@@ -1,6 +1,5 @@
 <div class="no_edit" id="show_issue_<%= issue.id %>" value="<%= issue.id %>">
-      <p class="id" style="font-size: 13px;float: left">
-      #<%= link_to issue.id,:controller => 'issues', :action => 'show', :id => issue.id %></p>
+
     <% if !User.current.anonymous? && @id_member.include?(User.current.id)|| User.current.admin %>
       <p class="icon_close_issue">
         <%= image_tag "Close.ico", :plugin => 'scrum2b', class: "icon", title: l(:label_board_issue_text_close_issue), id: 'close_' + issue.id.to_s, alt: "close_issue" %>
@@ -9,10 +8,24 @@
         <%= image_tag "Edit.ico", :plugin => 'scrum2b', class: "icon", title: l(:label_board_issue_text_edit_issue), alt: "edit_issue" %>
       </p>  
     <% end %>
-    <div class="subject" >
-      <p class="no_edit subject_issue" id="subject_<%= issue.id%>">
-        <%= issue.subject %></p>
-    </div>
+
+<div class="subject" >
+<%=
+    s = ''
+    ancestors = issue.root? ? [] : issue.ancestors.visible.all
+    ancestors.each do |ancestor|
+      s << '<div>' + content_tag('p', link_to_issue(ancestor, :project => (issue.project_id != ancestor.project_id)))
+    end
+    s << '<div>'
+    subject = h(issue.subject)
+    if issue.is_private?
+      subject = content_tag('span', l(:field_is_private), :class => 'private') + ' ' + subject
+    end
+    s << content_tag('h5', link_to_issue(issue))
+    s << '</div>' * (ancestors.size + 1)
+    s.html_safe
+%>
+</div>					      
     <div class="assignee clearfix">
       <i class="icon-arrow-right" style="float: left"></i>
       <% if issue.assigned_to %>
