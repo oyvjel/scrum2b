@@ -40,6 +40,19 @@ class S2bBoardsController < ApplicationController
       render :json => {:status => "completed", :done_ratio => 100 }
     elsif params[:status] == "started"
       @issue.update_attribute(:status_id, DEFAULT_STATUS_IDS['status_inprogress'])
+      @issue.update_attribute(:start_date, @issue.start_date || Date.today)
+      if ( @issue.priority_id == 1 )
+	@issue.update_attribute(:due_date, @issue.due_date || Date.today.advance( :months => 1))
+      elsif ( @issue.priority_id == 2 )
+	@issue.update_attribute(:due_date, @issue.due_date || Date.today.advance( :weeks => 1))
+      elsif ( @issue.priority_id == 3 )
+	@issue.update_attribute(:due_date, @issue.due_date || Date.today.advance( :days => 3))
+      elsif ( @issue.priority_id == 4 )
+	@issue.update_attribute(:due_date, @issue.due_date || Date.today.advance( :days => 1))
+      else
+	@issue.update_attribute(:due_date, @issue.due_date || Date.today )
+      end
+      
     elsif params[:status] == "new"
       @issue.update_attribute(:status_id, DEFAULT_STATUS_IDS['status_no_start'])
     end
