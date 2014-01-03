@@ -6,6 +6,8 @@ class S2bBoardsController < ApplicationController
   before_filter :check_before_board, :only => [:index, :close_on_board, :filter_issues_onboard, :update, :create]
   skip_before_filter :verify_authenticity_token
 
+    include IssuesHelper
+
   self.allow_forgery_protection = false
   
   DEFAULT_STATUS_IDS = {}

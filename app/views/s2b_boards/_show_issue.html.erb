@@ -25,7 +25,9 @@
     s << '</div>' * (ancestors.size + 1)
     s.html_safe
 %>
-</div>					      
+</div>
+<% # render_descendants_tree(issue) unless issue.leaf? %>
+<%= 'Has subtasks'  unless issue.leaf? %>
     <div class="assignee clearfix">
       <i class="icon-arrow-right" style="float: left"></i>
       <% if issue.assigned_to %>
