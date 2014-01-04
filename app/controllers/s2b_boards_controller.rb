@@ -31,7 +31,7 @@ class S2bBoardsController < S2bApplicationController
     end
     if params[:status] == "status_completed"
       result = @issue.update_attributes(:done_ratio => 100, :status_id => DEFAULT_STATUS_IDS['status_completed'])
-    elsif params[:status] == "started"
+    elsif params[:status] == "status_inprogress"
        result = @issue.update_attribute(:status_id, DEFAULT_STATUS_IDS['status_inprogress'])
       @issue.update_attribute(:start_date, @issue.start_date || Date.today)
       if ( @issue.priority_id == 1 )
