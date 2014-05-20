@@ -1,7 +1,9 @@
 class S2bNotesController < S2bApplicationController
   
+  skip_before_filter :verify_authenticity_token
   before_filter :find_project
   before_filter :find_issue
+  before_filter lambda { check_permission(:edit) }, :only => [:update, :create, :delete]
   
   def create
     @journal = Journal.new(params[:journal])
@@ -49,7 +51,7 @@ class S2bNotesController < S2bApplicationController
   private
 
   def find_issue
-    issue_id = params[:issue_id] || params[:id] || params[:comment][:commented_id]
+    issue_id = params[:issue_id] || params[:id]
     @issue = Issue.find(issue_id)
   end
 
