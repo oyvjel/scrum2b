@@ -92,7 +92,7 @@
       var issue_id = $(this).attr("value");
       var project_id = '<%= @project.id %>';
       $.ajax({
-        url : '/s2b_issues/show',
+        url : '../s2b_issues/show',
         type : "POST",
         data : 'issue_id=' + issue_id + '&project_id=' + project_id,
         dataType : "script",
@@ -104,7 +104,7 @@
     
     $("#btn_submit_create_notes").live("click",function(){
       $.ajax({
-        url : '/s2b_notes/create',
+        url : '../s2b_notes/create',
         beforeSend : function(xhr) {
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
               },
@@ -219,7 +219,7 @@
     var issue_id = id;
     var project_id = '<%= @project.id %>';
     $.ajax({
-      url : '/s2b_issues/show',
+      url : '../s2b_issues/show',
       type : "POST",
       data : 'issue_id=' + issue_id + '&project_id=' + project_id,
       dataType : "script",

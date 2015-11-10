@@ -95,7 +95,7 @@
   function edit_detail(issue_id){
     var project_id = '<%= @project.id %>';
     $.ajax({
-      url : '/s2b_issues/show',
+      url : '../s2b_issues/show',
       type : "POST",
       data : 'issue_id=' + issue_id + '&project_id=' + project_id,
       dataType : "script",
