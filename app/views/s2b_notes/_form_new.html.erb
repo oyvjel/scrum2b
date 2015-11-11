@@ -1,8 +1,9 @@
-<fieldset class="tabular tabular_notes">
+<fieldset class="tabular_notes">
   <legend>Create Comment</legend>
   <form id="form_create_notes" >
       <input name="authenticity_token" type="hidden"  value="<%= form_authenticity_token %>"/>
-      <textarea class="text_commnet" name="journal[notes]" style="height: 50px;width:100%"></textarea>
+      <textarea class="text_comment" name="journal[notes]" id="note_text"></textarea>
+<%# TODO: Virker heller ikke= wikitoolbar_for 'note_text' %> 
       <input type="hidden" name="journal[user_id]" value="<%= User.current.id %>"/>
       <input type="hidden" name="journal[journalized_type]" value="Issue"/>
       <input type="hidden" name="journal[journalized_id]" value="<%= @issue.id %>"/>

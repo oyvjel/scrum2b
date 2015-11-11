@@ -17,25 +17,29 @@
     s.html_safe
 %>
 </div>
-<a href="#" onClick="show_detail(<%= issue.id %>)" style="font-size: 15px" title="<%= l(:label_board_show_detail_issue) %>" value="<%= issue.id %>">#<%= issue.id %> <%= raw(issue.subject.truncate(60, :separator => ' ').html_safe.gsub(/\n/, " <br/> ")) %></a>
+<div class="scrumsubject">    
+<%= link_to issue.id,:controller => 'issues', :action => 'show', :id =>issue.id %>
+:   
+<a href="#" onClick="show_detail(<%= issue.id %>)"  title="<%= l(:label_board_show_detail_issue) %>" value="<%= issue.id %>"><%= raw(issue.subject.truncate(60, :separator => ' ').html_safe.gsub(/\n/, " <br/> ")) %></a>
 <% if editable_for_project? %>
  <i class="icon_close_issue icon icon-del" issue_id="<%= issue.id %>" title="<%= l(:label_board_issue_text_close_issue) %>">
  </i>  
  <i class="icon_edit_issue icon icon-edit" title="<%= l(:label_board_issue_text_edit_issue) %>">
  </i>  
 <% end %>
+</div>
 <div>
-<% # render_descendants_tree(issue) unless issue.leaf? %>
-<%= 'Has subtasks'  unless issue.leaf? %>
+<%= 'Subtasks:'  unless issue.leaf? %>
+<%= render_descendants_tree(issue) unless issue.leaf? %>
 </div>  
   
-    <div class="assignee clearfix">
+    <div class="clearfix assignee">
       <% if issue.assigned_to %>
-        <div class="no_edit" id="assignee_<%= issue.id %>" style="float:left;margin: 0 5px;color: #3A87AD;line-height: 40px">
+        <div class="assigneename" id="assignee_<%= issue.id %>" >
           <%= link_to issue.assigned_to,:controller => 'users', :action => 'show', :id =>issue.assigned_to.id %>
         </div>
       <% end %>
-      <div id="date_<%= issue.id %>" style="float: right">
+      <div id="date_<%= issue.id %>" >
         <% if issue.due_date %>
           <p style="float: right" id="end_date_<%= issue.id %>">
             &nbsp;-> <%= issue.due_date %>
@@ -59,15 +63,15 @@
         <% if issue.description.to_s.length >= 100 %>
           <div class="div_description description_hide" id="description_hide_<%= issue.id %>">
             <%= raw(issue.description.truncate(100, :separator => ' ').html_safe.gsub(/\n/, " <br/> ")) %>
-          </div>
-          <div class="div_description description_readmore" id="description_readmore_<%= issue.id %>" style="display: none">
-            <%= raw(issue.description.to_s.html_safe.gsub(/\n/, " <br/>")) %>
+            </div>
+          <div class="div_description description_readmore wiki" id="description_readmore_<%= issue.id %>" style="display: none">
+            <%= textilizable(issue.description) %>             
           </div>
           <a href="#" id="hide_<%= issue.id %>" class="hide no_edit" value="<%= issue.id %>"><%= l(:label_hide) %></a>
           <a href="#" id="readmore_<%= issue.id %>" class="readmore no_edit" value="<%= issue.id %>"><%= l(:label_readmore) %></a>
         <% else %>
-          <div class="no_edit div_description description_hide" id="description_hide_<%= issue.id %>">
-            <%= raw(issue.description.to_s.html_safe.gsub(/\n/, " <br/>")) %>
+          <div class="no_edit div_description description_hide wiki" id="description_hide_<%= issue.id %>">
+           <%= textilizable(issue, :description) %>
           </div>
         <% end %>
       </div>
