@@ -32,7 +32,7 @@ $(document).ready(function() {
         var slide_value = $("#slider" + issue_id).attr("value");
         $("#detail_issue").remove();
         $.ajax({
-          url : '/s2b_boards/draw_issue',
+          url : '../s2b_boards/draw_issue',
           type : "POST",
           data : 'issue_id=' + issue_id + '&project_id=' + project_id,
           dataType : "json",
@@ -91,7 +91,7 @@ $(document).ready(function() {
       var notes_id = $(this).attr("notes_id");
       var form = $('.form_notes_' + notes_id )
       $.ajax({
-        url : '/s2b_notes/update',
+        url : '../s2b_notes/update',
         beforeSend : function(xhr) {
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
               },
@@ -116,7 +116,7 @@ $(document).ready(function() {
         var issue_id = issue_id;
         var project_id = '<%= @project.id %>';
         $.ajax({
-          url : '/s2b_issues/delete',
+          url : '../s2b_issues/delete',
           type : "POST",
           data : 'issue_id=' + issue_id + '&project_id=' + project_id,
           dataType : "json",
@@ -139,7 +139,7 @@ $(document).ready(function() {
         var project_id = '<%= @project.id %>';
         var issue_id = issue_id;
         $.ajax({
-          url : '/s2b_issues/delete_attach',
+          url : '../s2b_issues/delete_attach',
           beforeSend : function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           type : "POST",
           data : 'attach_id=' + attach_id + '&project_id=' + project_id + '&issue_id=' + issue_id,
@@ -157,7 +157,7 @@ $(document).ready(function() {
         var project_id = <%= @project.id %> 
         var issue_id = <%= @issue.id %> 
         $.ajax({
-          url : '/s2b_notes/delete',
+          url : '../s2b_notes/delete',
           beforeSend : function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           type : "POST",
           data : 'notes_id=' + notes_id + '&project_id=' + project_id + '&issue_id=' + issue_id,
