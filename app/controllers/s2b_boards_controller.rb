@@ -211,7 +211,7 @@ class S2bBoardsController < S2bApplicationController
   def check_before_board
     @issue = Issue.new
     @priority = IssuePriority.all
-    @tracker = Tracker.all
+    @tracker = @project.trackers.collect  
     @status = IssueStatus.where("id IN (?)" , DEFAULT_STATUS_IDS['status_no_start'])
     @sprints = @project.versions.where(:status => "open")
   end
